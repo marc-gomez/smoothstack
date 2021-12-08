@@ -1,0 +1,7 @@
+My solution only uses pre-coded data types and gives a size using those values.
+
+Ideally, we would want to just use sizeof() on the input, but you can't do that in C++ because sizeof() is determined at compile time.
+This is because the data types don't exist in the program unless they are used.
+My current method falls short in that it doesn't include all data types, as well as possible data types that could be added in the future, which the ideal solution would solve.
+
+Different languages and compilers might use a different amount of space for the same type.
