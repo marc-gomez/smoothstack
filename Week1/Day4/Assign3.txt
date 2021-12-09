@@ -2,46 +2,46 @@
 
 Unary operators:
 
-negation                  -		-a
-increment                 ++		++a
-decrement                 --		--a
-logical not               !		!a
-address of                &		&a
-dereference               *		*a
-bitwise not               ~		~a
+negation                  -           -E
+increment                 ++          ++E
+decrement                 --          --E
+logical not               !           !E
+address of                &           &E
+dereference               *           *E
+bitwise not               ~           ~E
 
 Binary operators:
 
-addition                  +		a + b
-subtraction               -		a - b
-multiplication            *		a * b
-division                  /		a / b
-modulus                   %		a % 2
-equal                     ==		a == 1
-not equal                 !=		a != 1
-greater than              >		a > 1
-less than                 <		a < 1
-greater than or equal     >=		a >= 1
-less than or equal        <=		a <= 1
-logical and               &&		true && true
-logical or                ||		true || false
-logical exclusive or      ^		true ^ false
-left bit shift            <<		a << 1
-right bit shift           >>		a >> 1
-separator                 ,		a, b
-assignment                =		a = 1
-addition, assign          +=		a += 2
-subtraction, assign       -=		a -= 2
-multiplication, assign    *=		a *= 2
-division, assign          /=		a /= 2
-modulus, assign           %=		a %= 2
-left bit shift, assign    <<=		a <<= 1
-right bit shift, assign   >>=		a >>= 1
-logical and, assign       &=		a &= true
-logical or, assign        |=		a |= true
-logical xor, assign       ^=		a ^= true
+addition                  +           E1 + E2
+subtraction               -           E1 - E2
+multiplication            *           E1 * E2
+division                  /           E1 / E2
+modulus                   %           E1 % E2
+equal                     ==          E1 == E2
+not equal                 !=          E1 != E2
+greater than              >           E1 > E2
+less than                 <           E1 < E2
+greater than or equal     >=          E1 >= E2
+less than or equal        <=          E1 <= E2
+logical and               &&          E1 && E2
+logical or                ||          E1 || E2
+logical exclusive or      ^           E1 ^ E2
+left bit shift            <<          E1 << E2
+right bit shift           >>          E1 >> E2
+separator                 ,           E1 , E2
+assignment                =           a = E2
+addition, assign          +=          a += E2
+subtraction, assign       -=          a -= E2
+multiplication, assign    *=          a *= E2
+division, assign          /=          a /= E2
+modulus, assign           %=          a %= E2
+left bit shift, assign    <<=         a <<= E2
+right bit shift, assign   >>=         a >>= E2
+logical and, assign       &=          a &= E2
+logical or, assign        |=          a |= E2
+logical xor, assign       ^=          a ^= E2
 
 Ternary operators:
 
-conditional               ?:		a ? true : false
+conditional               ?:          E1 ? E2 : E3
 

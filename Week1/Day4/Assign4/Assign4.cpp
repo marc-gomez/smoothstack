@@ -15,6 +15,6 @@ int main(void) {
 
 }
 
-// the value of x is saved, x is incremented, then the saved value of x is added to 2..
+// the value of x is saved, x is incremented, then the saved value of x is added to 2 .
 // 
 // If y was instead written as y = ++x+2 , then the value would change so that x is incremented without a copy.
