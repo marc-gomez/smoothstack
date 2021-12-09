@@ -1,0 +1,47 @@
+
+
+Unary operators:
+
+negation                  -		-a
+increment                 ++		++a
+decrement                 --		--a
+logical not               !		!a
+address of                &		&a
+dereference               *		*a
+bitwise not               ~		~a
+
+Binary operators:
+
+addition                  +		a + b
+subtraction               -		a - b
+multiplication            *		a * b
+division                  /		a / b
+modulus                   %		a % 2
+equal                     ==		a == 1
+not equal                 !=		a != 1
+greater than              >		a > 1
+less than                 <		a < 1
+greater than or equal     >=		a >= 1
+less than or equal        <=		a <= 1
+logical and               &&		true && true
+logical or                ||		true || false
+logical exclusive or      ^		true ^ false
+left bit shift            <<		a << 1
+right bit shift           >>		a >> 1
+separator                 ,		a, b
+assignment                =		a = 1
+addition, assign          +=		a += 2
+subtraction, assign       -=		a -= 2
+multiplication, assign    *=		a *= 2
+division, assign          /=		a /= 2
+modulus, assign           %=		a %= 2
+left bit shift, assign    <<=		a <<= 1
+right bit shift, assign   >>=		a >>= 1
+logical and, assign       &=		a &= true
+logical or, assign        |=		a |= true
+logical xor, assign       ^=		a ^= true
+
+Ternary operators:
+
+conditional               ?:		a ? true : false
+
