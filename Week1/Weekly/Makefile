@@ -5,7 +5,7 @@ CXXFLAGS = -std=c++17 -Wall
 LDFLAGS =
 
 # Makefile settings - Can be customized.
-APPNAME = myapp
+APPNAME = bankcli
 EXT = .cpp
 SRCDIR = .
 OBJDIR = .
