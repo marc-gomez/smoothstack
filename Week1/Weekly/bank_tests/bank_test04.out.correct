@@ -1,0 +1,24 @@
+Username: Password: 
+Login successful
+
+Console commands:
+
+1. "show accounts"
+2. "display account"
+3. "search name"
+4. "new account"
+5. "close account"
+6. "quit"
+
+> name > 
+1. Bob Parsons
+2. Bob Parson
+3. Bobby Parsons
+4. Home
+
+Select number > 
+Customer name: Bob Parson
+SSN: XXX-XX-4321
+Date Opened: Sat Jan  1 00:00:00 2000
+
+> 

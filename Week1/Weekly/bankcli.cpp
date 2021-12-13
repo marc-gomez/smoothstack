@@ -6,50 +6,9 @@
 #include <deque>
 #include <algorithm>
 #include <iomanip>
+#include "Account.h"
 
 using namespace std;
-
-class Account {
-public:
-	Account(string name_in, int id_in, int ssn_in) :
-		name{name_in}, timer(time(nullptr)), id{id_in}, ssn{ssn_in} {
-		}
-
-	// Print customer name, account id, and date opened
-	void showAccount() {
-		cout << "Customer name: " << name << endl;
-		cout << "Account: " << id << endl;
-	       	cout << "Date Opened: " << asctime(localtime(&timer)) << endl;
-	}
-
-	// Print customer name, ssn, and date opened
-	void displayAccount() {
-		cout << "Customer name: " << name << endl;
-		cout << "SSN: " << "XXX-XX-" << setw(4) << setfill('0') << ssn % 10000 << endl;
-		cout << "Date Opened: " << asctime(localtime(&timer)) << endl;
-	}
-
-	// Return customer's name
-	string getName() {
-		return name;
-	}
-
-	// Return account's ID
-	int getId() {
-		return id;
-	}
-
-	// Return customer's SSN
-	int getSSN() {
-		return ssn;
-	}
-
-private:
-	string name;
-	time_t timer;
-	int id;
-	int ssn;
-};
 
 // Print available console commands
 void printCommands() {
@@ -102,7 +61,7 @@ void displayCommand(vector<Account*> &accs) {
 	cin >> accountNum;
 	bool found = false;
 	for(int i = 0; i < accs.size(); ++i) {
-		if (accs[i]->getId() == accountNum) {
+		if (accs[i]->getID() == accountNum) {
 			cout << endl;
 			accs[i]->displayAccount();
 			found = true;
@@ -192,7 +151,7 @@ void closeCommand(vector<Account*> &accs) {
 	bool found = false;
 	int index;
 	for (index = 0; index < accs.size(); ++index) {
-		if(accs[index]->getId() == toDelete) {
+		if(accs[index]->getID() == toDelete) {
 			found = true;
 			break;
 		}
