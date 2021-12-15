@@ -4,24 +4,18 @@
 
 using namespace std;
 
-void floatRep(float f) {
-	float f_copy = f;
-	int n = 0;
+void floatRep(double f) {
+	auto q = round(pow(2, 56)*f)/2;
+	auto appr = q * pow(10, 55) / pow(2, 55);
 
-	// loop until an integer value is reached
-	while(f_copy != (int)f_copy) {
-		f_copy *= 2;
-		n++;
-	}
-
-	cout << "J = " << f_copy << ", N = " << n << endl;
-	cout << f << endl;
+	cout << "J = " << q << ", N = " << 55 << endl;
+	cout << "0." << appr << endl;
 }
 
 int main() {
 
 	cout << "Enter float: ";
-	float x;
+	double x;
 	cin >> x;
 
 	cout << setprecision(55);
