@@ -9,7 +9,7 @@ void floatRep(double f) {
 	auto appr = q * pow(10, 55) / pow(2, 55);
 
 	cout << "J = " << q << ", N = " << 55 << endl;
-	cout << "0." << appr << endl;
+	cout << appr / pow(10,55) << endl;
 }
 
 int main() {
