@@ -30,6 +30,7 @@ class MergeSort {
 		int size = right - left;
 		vector<Student> c(size);
 		Student s;
+		bool (Student::*lessthan)(Student, Student) = &Student::comparator;
 
 		for (int i = left, j = mid, k = 0; k < size; ++k) {
 			if (i == mid) {
@@ -39,7 +40,7 @@ class MergeSort {
 				c[k] = students[i++];
 			}
 			else {
-				c[k] = ( s.comparator(students[i], students[j]) ) ? students[i++] : students[j++];
+				c[k] = ( (s.*lessthan)(students[i], students[j]) ) ? students[i++] : students[j++];
 			}
 		}
 
