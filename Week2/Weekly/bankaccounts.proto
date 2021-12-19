@@ -1,0 +1,24 @@
+syntax = "proto3";
+package bank;
+
+import "google/protobuf/timestamp.proto";
+
+message Admin {
+  string username = 1;
+  string password = 2;
+}
+
+message AdminList {
+  repeated Admin admins = 1;
+}
+
+message Account {
+  string name = 1;
+  int32 id = 2;
+  int32 ssn = 3;
+  google.protobuf.Timestamp date_opened = 4;
+}
+
+message AccountList {
+  repeated Account accounts = 1;
+}

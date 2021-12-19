@@ -30,5 +30,15 @@
 *.exe
 *.out
 *.app
+
 myapp
 bankcli
+/testing/*
+Week2/Weekly/add_admin_cpp
+Week2/Weekly/list_admins_cpp
+Week2/Weekly/logfile.txt
+Week2/Weekly/protoc_middleman
+*.pb.h
+*.pb.cc
+Week2/Weekly/add_admin.cc
+Week2/Weekly/list_admins.cc

@@ -13,3 +13,16 @@ RUN yum -y install iotop
 RUN yum -y install cscope
 RUN yum -y install tree
 RUN dnf -y group install "Development Tools"
+
+RUN git clone https://github.com/protocolbuffers/protobuf.git
+WORKDIR protobuf
+RUN git submodule update --init --recursive
+RUN ./autogen.sh
+RUN ./configure
+RUN make
+RUN make check
+RUN make install
+RUN ldconfig
+ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+ENV LD_LIBRARY_PATH=/usr/local/lib
+WORKDIR /smoothstack/
