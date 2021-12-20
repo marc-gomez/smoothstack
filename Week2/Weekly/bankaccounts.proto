@@ -17,6 +17,7 @@ message Account {
   int32 id = 2;
   int32 ssn = 3;
   google.protobuf.Timestamp date_opened = 4;
+  double balance = 5;
 }
 
 message AccountList {
