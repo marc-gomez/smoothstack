@@ -25,4 +25,4 @@ protoc_middleman: bankaccounts.proto
 .PHONY: clean
 clean:
 	rm -vrf *.o *.exe *.d *.gch *.dSYM *.stackdump *.out *.pb.cc *.pb.h
-	rm -f protoc_middleman bankcli
+	rm -vf protoc_middleman bankcli
