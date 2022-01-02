@@ -42,3 +42,4 @@ Week2/Weekly/protoc_middleman
 *.pb.cc
 Week2/Weekly/add_admin.cc
 Week2/Weekly/list_admins.cc
+*.swp

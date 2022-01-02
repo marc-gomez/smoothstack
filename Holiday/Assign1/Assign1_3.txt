@@ -1,0 +1,4 @@
+long multiplication is useful when detecting overflows.
+
+when trying to multiply two very large numbers,
+long multiplication can possibly detect an overflow before the full multiplication happens.
