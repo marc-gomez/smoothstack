@@ -1,1 +1,1 @@
-"tests/" contains output files to compare cal differences
+"tests/" contains output files created after using "make" to compare cal differences
