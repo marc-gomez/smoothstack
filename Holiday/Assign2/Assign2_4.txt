@@ -1,0 +1,6 @@
+My program works like the linux cal command for years >= 1100
+
+I use Zeller's algorithm to compute what day of the week a given day is.
+I am not entirely sure why 1100 is the first year that works.
+It could either be a Zeller's algorithm limitation, or a limitation of the linux cal command.
+More research would have to be done to figure out why.
