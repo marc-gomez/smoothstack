@@ -66,8 +66,7 @@ class Sentence {
 			sentence = other.sentence;
 			vsentence = other.vsentence;
 			other.sentence = nullptr;
-			vector<int> v;
-			other.vsentence = v;
+			other.vsentence.clear();
 		}
 
 		// Move assignment operator
@@ -79,8 +78,7 @@ class Sentence {
 			sentence = other.sentence;
 			vsentence = other.vsentence;
 			other.sentence = nullptr;
-			vector<int> v;
-			other.vsentence = v;
+			other.vsentence.clear();
 			return *this;
 		}
 

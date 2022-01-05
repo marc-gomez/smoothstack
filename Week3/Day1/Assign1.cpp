@@ -6,9 +6,6 @@ using namespace std;
 
 class Person {
 	private:
-		//int index;
-
-	public:
 		Person(string name_in) {
 			name = name_in;
 			count = 1;
@@ -19,6 +16,7 @@ class Person {
 			count = count_in + 1;
 		}
 
+	public:
 		string name;
 		int count;
 		static Person* persons[10];
