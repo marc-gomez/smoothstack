@@ -30,8 +30,8 @@ class Sentence {
 	public:
 		// Constructor
 		Sentence(char * sent) {
-			int len = strlen(sent) + 1;
-			sentence = new char[len];
+			int len = strlen(sent);
+			sentence = new char[len + 1];
 			strncpy(sentence, sent, len);
 			sentence[len] = '\0';
 
@@ -42,8 +42,8 @@ class Sentence {
 		Sentence(const Sentence &other) {
 			char * sent = other.data();
 
-			int len = strlen(sent) + 1;
-			sentence = new char[len];
+			int len = strlen(sent);
+			sentence = new char[len + 1];
 			strncpy(sentence, sent, len);
 			sentence[len] = '\0';
 
@@ -102,8 +102,8 @@ class Sentence {
 
 		void replace(char* sent) {
 			delete[] sentence;
-			int len = strlen(sent) + 1;
-			sentence = new char[len];
+			int len = strlen(sent);
+			sentence = new char[len + 1];
 			strncpy(sentence, sent, len);
 			sentence[len] = '\0';
 

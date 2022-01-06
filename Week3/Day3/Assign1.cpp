@@ -9,16 +9,16 @@ class MyString {
 		char * str;
 	public:
 		MyString(char const * inStr) {
-			int len = strlen(inStr) + 1;
-			str = new char[len];
+			int len = strlen(inStr);
+			str = new char[len + 1];
 			strncpy(str, inStr, len);
 			str[len] = '\0';
 		}
 
 		MyString(const MyString &other) {
 			char * otherStr = other.data();
-			int len = strlen(otherStr) + 1;
-			str = new char[len];
+			int len = strlen(otherStr);
+			str = new char[len + 1];
 			strncpy(str, otherStr, len);
 			str[len] = '\0';
 		}
@@ -29,8 +29,8 @@ class MyString {
 			}
 			delete[] str;
 			char * otherStr = other.data();
-			int len = strlen(otherStr) + 1;
-			str = new char[len];
+			int len = strlen(otherStr);
+			str = new char[len + 1];
 			strncpy(str, otherStr, len);
 			str[len] = '\0';
 			return *this;
@@ -52,10 +52,10 @@ class MyString {
 		}
 
 		MyString operator+(const MyString &other) {
-			int len = strlen(str) + strlen(other.data()) + 1;
-			char * newStr = new char[len];
-			strncpy(newStr, str, strlen(str) + 1);
-			strncpy(newStr + strlen(str), other.data(), strlen(other.data()) + 1);
+			int len = strlen(str) + strlen(other.data());
+			char * newStr = new char[len + 1];
+			strncpy(newStr, str, strlen(str));
+			strncpy(newStr + strlen(str), other.data(), strlen(other.data()));
 			newStr[len] = '\0';
 			MyString tempStr(newStr);
 			delete[] newStr;
@@ -68,10 +68,10 @@ class MyString {
 		}
 
 		MyString operator*(int mult) {
-			int len = (strlen(str) * mult) + 1;
-			char * newStr = new char[len];
+			int len = strlen(str) * mult;
+			char * newStr = new char[len + 1];
 			for (int i = 0; i < mult; ++i) {
-				strncpy(newStr + (i * strlen(str)), str, strlen(str) + 1);
+				strncpy(newStr + (i * strlen(str)), str, strlen(str));
 			}
 			newStr[len] = '\0';
 			MyString tempStr(newStr);
