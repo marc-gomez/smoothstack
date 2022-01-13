@@ -315,22 +315,28 @@ class Account {
 
 		// Currency
 		template <class R>
-		R * currency(const R r_in) const {
+		Account<R, C> * currency(const R r_in) const {
 			C c;
 			if (typeid(R) == typeid(T)) {
-				R * r = new R(amt.value);
-				return r;
+				R r(amt.value);
+				Account<R, Convert> * a = new Account<R, Convert>(r);
+				return a;
 			}
-			R * r = new R(c(amt, r_in).value);
-			return r;
+			R r(c(amt, r_in).value);
+			Account<R, Convert> * a = new Account<R, Convert>(r);
+			return a;
 		}
 
 		// Cast operator
 		template <class Q>
 		operator Account<Q, Convert>() const {
-			Q * q = currency(Q());
-			Account<Q, Convert> a(*q);
-			delete q;
+			C c;
+			if (typeid(Q) == typeid(T)) {
+				Account<Q, Convert> a(amt.value);
+				return a;
+			}
+			Q q(c(amt, Q()));
+			Account<Q, Convert> a(q);
 			return a;
 		}
 };
@@ -380,7 +386,14 @@ int main() {
 	b--;
 	assert(abs(b.getAmt().value - 1) < 0.01);
 
-	// Test cast operator and currency function
-	Account<Yen, Convert> e = d;
-	assert(e == d);
+	// Test currency function
+	Account<Yen, Convert> * e = a.currency(Yen());
+	assert(*e == a);
+	delete e;
+
+	// Test cast operator
+	Account<Yen, Convert> f = d;
+	assert(f == d);
+	Account<Yen, Convert> g = f;
+	assert(g == f);
 }
