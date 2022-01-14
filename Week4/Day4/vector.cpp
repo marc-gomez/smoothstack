@@ -5,7 +5,7 @@
 using namespace std;
 
 template<typename T>
-class Vector {
+class myvector {
 	private:
 		T* mData;
 		int mSize;
@@ -13,19 +13,29 @@ class Vector {
 		T mUndefined;
 
 	public:
-		Vector() {
+		myvector() {
 			mSize = 0;
 			mCapacity = 0;
 			reserve(15);
 		}
 
-		~Vector() {
+		myvector(T * t, int sz) {
+			mSize = sz;
+			mCapacity = 2 * sz;
+			T * newData = new T[mCapacity];
+			for(int i = 0; i < mSize; ++i) {
+				newData[i] = t[i];
+			}
+			mData = newData;
+		}
+
+		~myvector() {
 			if (mCapacity > 0) {
 				delete[] mData;
 			}
 		}
 
-		Vector(const Vector<T> &other) {
+		myvector(const myvector<T> &other) {
 			mSize = other.mSize;
 			mCapacity = other.mCapacity;
 			T * newData = new T[other.mCapacity];
@@ -35,7 +45,7 @@ class Vector {
 			mData = newData;
 		}
 		
-		Vector &operator=(const Vector<T> &other) {
+		myvector &operator=(const myvector<T> &other) {
 			if (this == &other) {
 				return *this;
 			}
@@ -49,6 +59,31 @@ class Vector {
 				newData[i] = other.mData[i];
 			}
 			mData = newData;
+			return *this;
+		}
+
+		myvector(myvector<T> &&other) {
+			mSize = other.mSize;
+			mCapacity = other.mCapacity;
+			mData = other.mData;
+			other.mSize = 0;
+			other.mCapacity = 0;
+			other.mData = nullptr;
+		}
+
+		myvector &operator=(myvector &&other) {
+			if (this == &other) {
+				return *this;
+			}
+			if (mCapacity > 0) {
+				delete[] mData;
+			}
+			mSize = other.mSize;
+			mCapacity = other.mCapacity;
+			mData = other.mData;
+			other.mSize = 0;
+			other.mCapacity = 0;
+			other.mData = nullptr;		
 			return *this;
 		}
 		
@@ -66,12 +101,19 @@ class Vector {
 				mData[mSize] = mUndefined;
 			}
 		}
-		
-		T &at(int tWhere) {
-			if (tWhere >= mSize) {
+
+		T &operator[](int offset) {
+			if (offset >= mSize) {
 				return mUndefined;
 			}
-			return mData[tWhere];
+			return mData[offset];
+		}
+		
+		T &at(int offset) {
+			if (offset >= mSize) {
+				return mUndefined;
+			}
+			return mData[offset];
 		}
 		
 		void clear() {
@@ -102,12 +144,57 @@ class Vector {
 		int capacity() const {
 			return mCapacity;
 		}
+
+		class iterator {
+			private:
+				friend myvector;
+				const myvector *myvec;
+				int current;
+
+			public:
+				iterator(const myvector * myvec, int offset) : myvec(myvec), current(offset) {}
+
+				void operator++() {
+					current++;
+				}
+
+				void operator--() {
+					current--;
+				}
+
+				bool operator==(const iterator &other) {
+					if (myvec == other.myvec && current == other.current) {
+						return true;
+					}
+					return false;
+				}
+
+				bool operator!=(const iterator &other) {
+					if (myvec != other.myvec || current != other.current) {
+						return true;
+					}
+					return false;
+				}
+
+				T& operator*() {
+					return myvec->mData[current];
+				}
+
+		};
+
+		iterator begin() const {
+			return iterator(this, 0);
+		}
+
+		iterator end() const {
+			return iterator(this, mSize);
+		}
 };
 
 int main() {
 
 	// Test initialization
-	Vector<int> a;
+	myvector<int> a;
 	assert(a.size() == 0);
 	assert(a.capacity() == 15);
 
@@ -138,11 +225,11 @@ int main() {
 	a.push_back(1);
 	a.reserve(20);
 	assert(a.size() == 1);
-	assert(a.at(0) == 1);
+	assert(a[0] == 1);
 	assert(a.capacity() == 20);
 
 	// Test capacity growth
-	Vector<int> b;
+	myvector<int> b;
 	for (int i = 0; i < 15; ++i) {
 		b.push_back(i);
 	}
@@ -153,23 +240,62 @@ int main() {
 	assert(b.capacity() == 30);
 
 	// Test copy constructor
-	Vector<int> c(a);
+	myvector<int> c(a);
 	assert(c.size() == 1);
 	assert(c.capacity() == 20);
 	assert(c.at(0) == 1);
 
 	// Test assignment operator
-	Vector<int> d;
+	myvector<int> d;
 	d = c;
 	assert(d.size() == 1);
 	assert(d.capacity() == 20);
 	assert(d.at(0) == 1);
 
 	// Test Vector with strings
-	Vector<string> e;
+	myvector<string> e;
 	e.push_back("first");
 	e.push_back("second");
 	assert(e.size() == 2);
 	assert(e.capacity() == 15);
-	assert(e.at(1) == "second");
+	assert(e[1] == "second");
+
+	// Test array initialization
+	int arr[] = {1, 2, 3};
+	myvector<int> f(arr, sizeof(arr)/sizeof(arr[0]));
+	assert(f.size() == 3);
+	assert(f.capacity() == 6);
+	assert(f[2] == 3);
+
+	// Test move constructor
+	myvector<int> g = move(f);
+	assert(g.size() == 3);
+	assert(g.capacity() == 6);
+	assert(g[2] == 3);
+	assert(f.size() == 0);
+	assert(f.capacity() == 0);
+
+	// Test move assignment operator
+	myvector<int> h;
+	h.push_back(5);
+	h = move(g);
+	assert(h.size() == 3);
+	assert(h.capacity() == 6);
+	assert(h[0] == 1);
+	assert(g.size() == 0);
+	assert(g.capacity() == 0);
+
+	// Test iterator
+	int index = 1;
+	for (auto it = h.begin(), end = h.end(); it != end; ++it) {
+		assert(*it == index);
+		++index;
+	}
+	assert(index == 4);
+
+	// Test iterator equality
+	auto it1 = d.begin();
+	auto it2 = d.end();
+	--it2;
+	assert(it1 == it2);
 }
