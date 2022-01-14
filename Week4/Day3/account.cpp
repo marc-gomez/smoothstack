@@ -225,7 +225,7 @@ class Account {
 		}
 
 		template <class X>
-		T operator&(const X x) {
+		T operator%(const X x) {
 			if (is_arithmetic_v<X>) {
 				T t(amt.value % x);
 				return t;
