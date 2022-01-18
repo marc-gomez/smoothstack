@@ -1,0 +1,24 @@
+N: 10
+Interactions/sec: 5e+06
+
+N: 20
+Interactions/sec: 2e+07
+
+N: 50
+Interactions/sec: 1.25e+08
+
+N: 100
+Interactions/sec: 5e+08
+
+N: 200
+Interactions/sec: 2e+09
+
+N: 500
+Interactions/sec: 1.25e+10
+
+N: 1000
+Interactions/sec: 5e+10
+
+N: 2000
+Interactions/sec: 2e+11
+
