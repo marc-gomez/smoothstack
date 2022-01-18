@@ -1,24 +1,24 @@
 N: 10
-Interactions/sec: 1.1868e+07
+Interactions/sec: 1e+07
 
 N: 20
-Interactions/sec: 1.26159e+07
+Interactions/sec: 4e+07
 
 N: 50
-Interactions/sec: 1.25194e+07
+Interactions/sec: 2.5e+08
 
 N: 100
-Interactions/sec: 1.22386e+07
+Interactions/sec: 1e+09
 
 N: 200
-Interactions/sec: 1.21897e+07
+Interactions/sec: 4e+09
 
 N: 500
-Interactions/sec: 1.23334e+07
+Interactions/sec: 2.5e+10
 
 N: 1000
-Interactions/sec: 1.22579e+07
+Interactions/sec: 1e+11
 
 N: 2000
-Interactions/sec: 1.22948e+07
+Interactions/sec: 4e+11
 

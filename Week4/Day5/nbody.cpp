@@ -2,7 +2,6 @@
 #include <cassert>
 #include <cstdlib>
 #include <cmath>
-#include <chrono>
 
 using namespace std;
 
@@ -119,8 +118,6 @@ int main() {
 	for (int N_index = 0; N_index < sizeof(numBodies)/sizeof(numBodies[0]); ++N_index) {
 		N = numBodies[N_index];
 
-		auto t_start = chrono::high_resolution_clock::now();
-
 		// Initialize bodies
 		body * bodies = new body[N];
 		for (int i = 0; i < N; ++i) {
@@ -224,10 +221,8 @@ int main() {
 		}
 
 		// Print interactions per second
-		auto t_end = chrono::high_resolution_clock::now();
-		double elapsed_time = chrono::duration<double>(t_end - t_start).count();
 		cout << "N: " << N << endl <<
-			"Interactions/sec: " << [elapsed_time] {return k * N * N / elapsed_time;}() << endl << endl;
+			"Interactions/sec: " << [] {return k * N * N / timestep;}() << endl << endl;
 
 		// Free memory
 		delete[] bodies;
