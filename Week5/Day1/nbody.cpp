@@ -156,7 +156,7 @@ int main() {
 					// Calculate force between bod and all other bodies and update forceVector
 					for (int others = 0; others < N; ++others) {
 						// half-pairs
-						if (bod <= others) {
+						if (bod < others) {
 							bodies[bod].forceVector[others] =
 								[] (double m1, double m2, R pos1, R pos2) {
 									if (pos1.x == pos2.x && pos1.y == pos2.y) {
