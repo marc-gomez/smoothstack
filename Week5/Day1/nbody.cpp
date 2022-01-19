@@ -154,37 +154,34 @@ int main() {
 
 				if (step < k) {
 					// Calculate force between bod and all other bodies and update forceVector
-					for (int others = 0; others < N; ++others) {
-						// half-pairs
-						if (bod < others) {
-							bodies[bod].forceVector[others] =
-								[] (double m1, double m2, R pos1, R pos2) {
-									if (pos1.x == pos2.x && pos1.y == pos2.y) {
-										return F();
-									}
-									double dist = [pos1, pos2] {
-										return sqrt(pow(pos1.x - pos2.x, 2) +
-										pow(pos1.y - pos2.y, 2));
-									}();
-									double f = (-1*G*m1*m2 / (dist*dist) );
-									double rad = atan(abs(pos1.y - pos2.y) /
-											abs(pos1.x - pos2.x));
-									F final = F(cos(rad) * f, sin(rad) * f);
+					for (int others = bod + 1; others < N; ++others) {
+						bodies[bod].forceVector[others] =
+							[] (double m1, double m2, R pos1, R pos2) {
+								if (pos1.x == pos2.x && pos1.y == pos2.y) {
+									return F();
+								}
+								double dist = [pos1, pos2] {
+									return sqrt(pow(pos1.x - pos2.x, 2) +
+									pow(pos1.y - pos2.y, 2));
+								}();
+								double f = (-1*G*m1*m2 / (dist*dist) );
+								double rad = atan(abs(pos1.y - pos2.y) /
+										abs(pos1.x - pos2.x));
+								F final = F(cos(rad) * f, sin(rad) * f);
 
-									// Adjust sign/direction
-									if (pos1.x < pos2.x) {
-										final.x_f = abs(final.x_f);
-									}
-									if (pos1.y < pos2.y) {
-										final.y_f = abs(final.y_f);
-									}
-									return final;
-								}(bodies[bod].mass, bodies[others].mass,
-								bodies[bod].position, bodies[others].position);
-							// half-pair
-							bodies[others].forceVector[bod] =
-								bodies[bod].forceVector[others] * -1;
-						}
+								// Adjust sign/direction
+								if (pos1.x < pos2.x) {
+									final.x_f = abs(final.x_f);
+								}
+								if (pos1.y < pos2.y) {
+									final.y_f = abs(final.y_f);
+								}
+								return final;
+							}(bodies[bod].mass, bodies[others].mass,
+							bodies[bod].position, bodies[others].position);
+						// half-pair
+						bodies[others].forceVector[bod] =
+							bodies[bod].forceVector[others] * -1;
 					}
 				}
 			}
