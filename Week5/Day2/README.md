@@ -1,0 +1,3 @@
+After varying M, there seems to be no significant difference in the interactions/sec value. Most values come out to around 200,000 interactions/sec, with some outliers interspersed. Even with N as the independent value, there seems to be no correlation in the values. These results could be because the data sets are somewhat small. Maybe numbers 10 times as big would yield a more discernable pattern, but the program would run for a lot longer duration.
+
+As for the differences between the results_sleep and results data sets, it seems like the set with sleep included has slightly higher values. It also seems like the sleep set also has slighty fewer outliers. This could be due to random variance, however.
