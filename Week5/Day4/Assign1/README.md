@@ -1,0 +1,1 @@
+The difference in the programs is the race condition in the while loop condition. In the program with the race, vec.back() isn't locked so it's value could change after evaluation.
