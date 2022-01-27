@@ -1,6 +1,7 @@
 #include <future>
 #include <algorithm>
 #include <vector>
+#include <iostream>
 #include <iterator>
 #include <cassert>
 
@@ -14,16 +15,16 @@ struct join_threads {
 	}
 };
 
-template<typename Iterator, typename MatchType>
-Iterator parallel_find(Iterator first, Iterator last, MatchType match) {
+template<typename Iterator, class UnaryPredicate>
+bool parallel_any_of(Iterator first, Iterator last, UnaryPredicate pred) {
 	struct find_element {
-		void operator()(Iterator begin, Iterator end, MatchType match,
-			std::promise<Iterator> * result,
+		void operator()(Iterator begin, Iterator end, UnaryPredicate pred,
+			std::promise<bool> * result,
 			std::atomic<bool> * done_flag) {
 			try {
 				for (;(begin != end) && !done_flag->load(); ++begin) {
-					if (*begin == match) {
-						result->set_value(begin);
+					if (pred(*begin)) {
+						result->set_value(true);
 						done_flag->store(true);
 						return;
 					}
@@ -40,9 +41,8 @@ Iterator parallel_find(Iterator first, Iterator last, MatchType match) {
 	unsigned long const length = std::distance(first, last);
 
 	if (!length) {
-		return last;
+		return false;
 	}
-
 	unsigned long const min_per_thread = 25;
 	unsigned long const max_threads = (length+min_per_thread-1)/min_per_thread;
 
@@ -52,7 +52,7 @@ Iterator parallel_find(Iterator first, Iterator last, MatchType match) {
 
 	unsigned long const block_size = length/num_threads;
 
-	std::promise<Iterator> result;
+	std::promise<bool> result;
 	std::atomic<bool> done_flag(false);
 	std::vector<std::thread> threads(num_threads-1);
 	{
@@ -62,14 +62,15 @@ Iterator parallel_find(Iterator first, Iterator last, MatchType match) {
 		for (unsigned long i = 0; i < (num_threads-1); ++i) {
 			Iterator block_end = block_start;
 			std::advance(block_end, block_size);
-			threads[i] = std::thread(find_element(), block_start, block_end, match, &result, &done_flag);
+			threads[i] = std::thread(find_element(), block_start, block_end, pred, &result, &done_flag);
 			block_start = block_end;
 		}
-		find_element()(block_start, last, match, &result, &done_flag);
+		find_element()(block_start, last, pred, &result, &done_flag);
 	}
 	if (!done_flag.load()) {
-		return last;
+		return false;
 	}
+
 	return result.get_future().get();
 }
 
@@ -78,9 +79,22 @@ int main(void) {
 	for (int ii = 0; ii < 10000; ii++) {
 		myvec.push_back("hello");
 	}
+
+	bool found = parallel_any_of(myvec.begin(), myvec.end(), [](std::string s){return s == "world";});
+	assert(!found);
+
 	std::vector<std::string>::iterator iter = myvec.begin();
 	iter += 5000;
 	myvec.insert(iter, "world");
-	auto found = parallel_find(myvec.begin(), myvec.end(), "world");
-	assert(*found == "world");
+
+	found = parallel_any_of(myvec.begin(), myvec.end(), [](std::string s){return s == "world";});
+	assert(found);
 }
+
+// N is the size of the vector
+// k is the number of threads
+
+// Best case is when any_of() returns true at the start of a block
+
+// Worst case is when any_of() returns false. k threads will have to check N elements in total. log_k(N) steps.
+// A sequential version will take N steps
