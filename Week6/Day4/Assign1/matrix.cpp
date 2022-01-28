@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstdlib>
+#include <cassert>
+#include <type_traits>
 
 using namespace std;
 
@@ -18,6 +20,8 @@ void randomizeMatrix(T ** mat, const int dimension) {
 
 template<typename T>
 void matrixMultiply(T ** matrixA, T ** matrixB, T ** matrixC, const int dimension) {
+	assert(is_arithmetic_v<T>);
+
 	T flatA[MAX_DIM];
 	T flatB[MAX_DIM];
 
@@ -69,14 +73,29 @@ int main() {
 		matC[i] = new int[dim];
 	}
 	
-	randomizeMatrix(matA, dim);
-	randomizeMatrix(matB, dim);
+	//randomizeMatrix(matA, dim);
+	//randomizeMatrix(matB, dim);
+
+	matA[0][0] = 3;
+	matA[0][1] = 6;
+	matA[1][0] = 7;
+	matA[1][1] = 5;
+
+	matB[0][0] = 3;
+	matB[0][1] = 5;
+	matB[1][0] = 6;
+	matB[1][1] = 2;
 
 	matrixMultiply(matA, matB, matC, dim);
 
-	printMatrix(matA, dim);
-	printMatrix(matB, dim);
-	printMatrix(matC, dim);
+	//printMatrix(matA, dim);
+	//printMatrix(matB, dim);
+	//printMatrix(matC, dim);
+
+	assert(matC[0][0] == 45);
+	assert(matC[0][1] == 27);
+	assert(matC[1][0] == 51);
+	assert(matC[1][1] == 45);
 
 	for (int i = 0; i < dim; ++i) {
 		delete[] matA[i];

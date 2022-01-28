@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cassert>
+#include <type_traits>
 
 using namespace std;
 
@@ -20,6 +21,8 @@ void randomizeMatrix(T ** mat, const int numRow, const int numCol) {
 template<typename T>
 void matrixMultiply(T ** matrixA, T ** matrixB, T ** matrixC,
 		const int numRowA, const int numColA, const int numRowB, const int numColB) {
+	assert(is_arithmetic_v<T>);
+	
 	T flatA[MAX_DIM];
 	T flatB[MAX_DIM];
 
