@@ -13,6 +13,8 @@ RUN yum -y install iotop
 RUN yum -y install cscope
 RUN yum -y install tree
 RUN dnf -y group install "Development Tools"
+RUN dnf -y install gcc-toolset-11-gcc
+RUN dnf -y install gcc-toolset-11-gcc-c++
 
 RUN git clone https://github.com/protocolbuffers/protobuf.git
 WORKDIR protobuf
