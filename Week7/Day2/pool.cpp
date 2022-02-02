@@ -32,13 +32,13 @@ class threadsafe_queue {
 
         threadsafe_queue& operator=(const threadsafe_queue &) = delete;
 
-        void push(T new_value, int index) {
+        void push(T new_value) {
             lock_guard<mutex> lk(mut);
             data_queue.push(new_value);
             data_cond.notify_one();
         }
 
-        bool try_pop(T &value, int index) {
+        bool try_pop(T &value) {
             lock_guard<mutex> lk(mut);
             if (data_queue.empty()) {
                 return false;
@@ -48,7 +48,7 @@ class threadsafe_queue {
             return true;
         }
 
-        shared_ptr<T> try_pop(int index) {
+        shared_ptr<T> try_pop() {
             lock_guard<mutex> lk(mut);
             if (data_queue.empty()) {
                 return shared_ptr<T>();
@@ -58,14 +58,14 @@ class threadsafe_queue {
             return res;
         }
 
-        void wait_and_pop(T &value, int index) {
+        void wait_and_pop(T &value) {
             unique_lock<mutex> lk(mut);
             data_cond.wait(lk, [this] {return !data_queue.empty();});
             value = data_queue.front();
             data_queue.pop();
         }
 
-        shared_ptr<T> wait_and_pop(int index) {
+        shared_ptr<T> wait_and_pop() {
             unique_lock<mutex> lk(mut);
             data_cond.wait(lk, [this] {return !data_queue.empty();});
             shared_ptr<T> res(make_shared<T>(data_queue.front()));
