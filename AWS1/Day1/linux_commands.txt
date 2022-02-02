@@ -1,0 +1,29 @@
+1. wget/curl
+	-download files from the web
+
+2. top/htop
+	-monitor the system's resources
+
+3. zip/unzip/tar
+	-compress/uncompress files
+
+4. fortune
+	-prints a funny "fortune"
+
+5. vim
+	-popular text editor
+
+6. head
+	-view the first several lines of a file
+
+7. find
+	-search for files and directories
+
+8. du
+	-show disk usage (file size)
+
+9. ssh
+	-remotely connect to a server
+
+10. ln
+	-link a file (create a shortcut)
